@@ -31,8 +31,10 @@ namespace API.Services
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
+                // Issuer = "http://localhost:5000/",
+                // Audience = "https://localhost:44396/",
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(7),
+                Expires = DateTime.UtcNow.AddHours(2),
                 SigningCredentials = creds
             };
 
@@ -42,5 +44,6 @@ namespace API.Services
 
             return tokenHandler.WriteToken(token);
         }
+
     }
 }

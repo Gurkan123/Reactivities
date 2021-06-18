@@ -25,6 +25,7 @@ namespace API.Controllers
             _userManager = userManager;
 
         }
+        
 
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
@@ -82,6 +83,20 @@ namespace API.Controllers
 
             return CreateUserObject(user);
         }
+
+        // public async Task<IActionResult> Token(string grant_type, // flow of access_token request
+        //     string code, // confirmation of the authentication process
+        //     string redirect_uri,
+        //     string client_id,
+        //     string refresh_token)
+        // {
+
+        //     var user = await _userManager.FindByEmailAsync("ali@test.com");
+
+        //     var access_token = _tokenService.CreateToken(user);
+
+            
+        // }
 
         private UserDto CreateUserObject(AppUser user)
         {
