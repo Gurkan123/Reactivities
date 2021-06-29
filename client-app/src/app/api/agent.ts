@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { history } from '../..';
 import { Activity } from '../models/activity';
+import { Product } from '../models/product';
 import { User, UserFormValues } from '../models/user';
 import { store } from '../stores/store';
 
@@ -11,7 +12,7 @@ const sleep = (delay: number) => {
     })
 }
 
-axios.defaults.baseURL = 'http://localhost:5000/api';
+axios.defaults.baseURL = 'http://localhost:7000/api';
 
 axios.interceptors.request.use(config => {
     const token = store.commonStore.token;
@@ -78,9 +79,14 @@ const Account = {
     register: (user: UserFormValues) => requests.post<User>('/account/register', user)
 }
 
+const Products = {
+    list: () => requests.get<Product[]>('/product'),
+}
+
 const agent = {
     Activities,
-    Account
+    Account,
+    Products
 }
 
 export default agent;

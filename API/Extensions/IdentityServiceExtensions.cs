@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using API.Services;
 using Domain;
@@ -34,6 +35,32 @@ namespace API.Extensions
                     };
                 });
             services.AddScoped<TokenService>();
+
+            // var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
+            // var tokenValidationParameters = new TokenValidationParameters
+            // {
+            //     ValidateIssuerSigningKey = true,
+            //     IssuerSigningKey = signingKey,
+            //     ValidateIssuer = true,
+            //     ValidIssuer = config["Audience:Iss"],
+            //     ValidateAudience = true,
+            //     ValidAudience = config["Audience:Aud"],
+            //     ValidateLifetime = true,
+            //     ClockSkew = TimeSpan.Zero,
+            //     RequireExpirationTime = true,
+            // };
+
+            // services.AddAuthentication(o =>
+            // {
+            //     o.DefaultAuthenticateScheme = "TestKey";
+            // });
+
+            // services.AddAuthentication()
+            //         .AddJwtBearer("TestKey", x =>
+            //          {
+            //              x.RequireHttpsMetadata = false;
+            //              x.TokenValidationParameters = tokenValidationParameters;
+            //          });
 
             return services;
         }

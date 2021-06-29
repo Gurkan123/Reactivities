@@ -13,7 +13,7 @@ export default observer(function RegisterForm() {
             initialValues={{displayName: '', username: '', email: '', password: '', error: null}}
             onSubmit={(values, {setErrors}) => userStore.register(values).catch(error => 
                 setErrors({error: 'Invalid email or password'}))}
-            validationSchema={Yup.object({
+            validationSchema={Yup.object({//Yup uzun uzun ifler yerine tek required ile yönetmemizi sağlıyor
                     displayName: Yup.string().required(),
                     username: Yup.string().required(),
                     email: Yup.string().required().email(),
@@ -22,7 +22,7 @@ export default observer(function RegisterForm() {
         >
             {({handleSubmit, isSubmitting, errors, isValid, dirty}) => (
                 <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
-                    <Header as='h2' content='Sign up to Reactivites' color='teal' textAlign='center' />
+                    <Header as='h2' content='Sign up to VISIOLINK' color='teal' textAlign='center' />
                     <MyTextInput name='displayName' placeholder='Display Name' />
                     <MyTextInput name='username' placeholder='Username' />
                     <MyTextInput name='email' placeholder='Email' />

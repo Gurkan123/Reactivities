@@ -36,20 +36,24 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers(opt => 
+            services.AddControllers(
+                opt =>
             {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 opt.Filters.Add(new AuthorizeFilter(policy));
-            })
-                .AddFluentValidation(config => 
+            }
+            )
+                .AddFluentValidation(config =>
             {
                 config.RegisterValidatorsFromAssemblyContaining<Create>();
             });
             services.AddApplicationServices(_config);
+            services.AddOptions();
+            services.Configure<Audience>(_config.GetSection("Audience"));
             services.AddIdentityServices(_config);
             // services.AddSwaggerGen(swagger =>
             // {
-                
+
             //     // To Enable authorization using Swagger (JWT)  
             //     swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
             //     {
@@ -94,14 +98,14 @@ namespace API
                     // c.OAuthAppName("sa ui");
                 });
 
-                
+
             }
 
-            // app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseCors("CorsPolicy");
+            // app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -110,6 +114,13 @@ namespace API
             {
                 endpoints.MapControllers();
             });
+        }
+
+        public class Audience
+        {
+            public string Secret { get; set; }
+            public string Iss { get; set; }
+            public string Aud { get; set; }
         }
     }
 }
